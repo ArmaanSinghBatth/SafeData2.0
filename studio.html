@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f7f7f2" />
+    <meta name="description" content="SafeData Studio — hide and reveal private messages inside images, entirely in your browser." />
+    <title>SafeData Studio — Encode & decode privately</title>
+  </head>
+  <body class="studio-page">
+    <div class="noise" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="SafeData home">
+        <span class="brand-mark" aria-hidden="true"><span></span></span>
+        <span class="brand-name">SAFE<span>DATA</span></span>
+      </a>
+      <div class="studio-header-label"><span class="status-dot"></span> Runs locally in your browser</div>
+      <a class="button button-dark button-small" href="/">Back to home <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main>
+      <section class="studio-hero section-pad">
+        <div>
+          <span class="eyebrow">SAFE DATA / STUDIO</span>
+          <h1>Hide it in plain <em>sight.</em></h1>
+          <p>Encode a private message inside an ordinary image, then share the protected file anywhere. Decode it again with the password — no upload, no account, no trace.</p>
+        </div>
+        <div class="local-only-card"><span class="local-icon">⌁</span><div><strong>Your files never leave this device.</strong><small>Encryption, embedding, and decoding happen inside your browser.</small></div></div>
+      </section>
+
+      <section class="studio-shell section-pad">
+        <div class="studio-tabs" role="tablist" aria-label="SafeData tools">
+          <button class="studio-tab active" id="encode-tab" role="tab" aria-selected="true" aria-controls="encode-panel" data-panel="encode-panel"><span>01</span> Encode a message <b>↗</b></button>
+          <button class="studio-tab" id="decode-tab" role="tab" aria-selected="false" aria-controls="decode-panel" data-panel="decode-panel"><span>02</span> Decode an image <b>↗</b></button>
+        </div>
+
+        <section class="tool-panel active" id="encode-panel" role="tabpanel" aria-labelledby="encode-tab">
+          <div class="tool-intro"><span class="eyebrow">01 / PROTECT</span><h2>Turn an image<br /><em>into a secret.</em></h2><p>Choose an image, write your message, and create a password. SafeData encrypts the message and hides it in the image’s pixels.</p><div class="tool-note"><span>↳</span> The larger the image, the more text it can safely carry.</div></div>
+          <div class="tool-card">
+            <form id="encode-form" novalidate>
+              <div class="field-block"><label for="encode-file">01 / Choose a carrier image</label><label class="file-drop" for="encode-file"><span class="file-icon">▧</span><span class="file-drop-copy"><strong id="encode-file-name">Drop an image here or browse</strong><small>PNG, JPG, or WEBP · stays on this device</small></span><span class="file-arrow">↗</span><input id="encode-file" type="file" accept="image/png,image/jpeg,image/webp" /></label></div>
+              <div class="field-block"><label for="encode-password">02 / Set a password</label><input id="encode-password" class="text-input" type="password" autocomplete="new-password" placeholder="A password only your recipient knows" /></div>
+              <div class="field-block"><label for="encode-message">03 / Write your private message</label><textarea id="encode-message" class="text-input message-input" rows="5" placeholder="Type the text you want to hide..."></textarea><div class="field-meta"><span>Encrypted with AES-GCM</span><span id="encode-count">0 characters</span></div></div>
+              <button class="button button-dark tool-submit" type="submit">Encrypt & hide message <span aria-hidden="true">↗</span></button>
+            </form>
+            <div class="tool-status" id="encode-status" role="status" aria-live="polite"></div>
+          </div>
+          <div class="studio-results" id="encode-results" hidden>
+            <div class="results-heading"><span class="eyebrow">RESULT / READY TO SHARE</span><h3>Your protected image is ready.</h3><p>Download this new PNG and share it as you normally would. The hidden message can only be recovered with the password.</p><a class="button button-outline" id="download-image" download="safedata-protected.png" href="#">Download protected image <span aria-hidden="true">↓</span></a></div>
+            <div class="canvas-grid"><figure><figcaption><span>01</span> Original</figcaption><canvas id="original-canvas"></canvas></figure><figure class="result-highlight"><figcaption><span>02</span> Message hidden inside</figcaption><canvas id="encoded-canvas"></canvas></figure></div>
+          </div>
+        </section>
+
+        <section class="tool-panel" id="decode-panel" role="tabpanel" aria-labelledby="decode-tab" hidden>
+          <div class="tool-intro"><span class="eyebrow">02 / REVEAL</span><h2>Find what’s<br /><em>inside.</em></h2><p>Choose a SafeData image and enter the matching password. The hidden text is decrypted locally and shown only to you.</p><div class="tool-note"><span>↳</span> A wrong password cannot reveal the protected message.</div></div>
+          <div class="tool-card">
+            <form id="decode-form" novalidate>
+              <div class="field-block"><label for="decode-file">01 / Choose a protected image</label><label class="file-drop" for="decode-file"><span class="file-icon">▧</span><span class="file-drop-copy"><strong id="decode-file-name">Drop a SafeData image here</strong><small>Only the image is read · nothing is uploaded</small></span><span class="file-arrow">↗</span><input id="decode-file" type="file" accept="image/png,image/jpeg,image/webp" /></label></div>
+              <div class="field-block"><label for="decode-password">02 / Enter the password</label><input id="decode-password" class="text-input" type="password" autocomplete="current-password" placeholder="Enter the password used to protect it" /></div>
+              <button class="button button-dark tool-submit" type="submit">Decode private message <span aria-hidden="true">↗</span></button>
+            </form>
+            <div class="tool-status" id="decode-status" role="status" aria-live="polite"></div>
+          </div>
+          <div class="studio-results decode-results" id="decode-results" hidden>
+            <div class="results-heading"><span class="eyebrow">RESULT / DECODED LOCALLY</span><h3>Message unlocked.</h3><p>This text was recovered from the image on this device.</p></div>
+            <div class="decoded-layout"><figure class="decode-preview"><figcaption><span>01</span> Input image</figcaption><canvas id="decoded-canvas"></canvas></figure><div class="decoded-message-wrap"><span class="eyebrow">HIDDEN MESSAGE</span><div class="decoded-message" id="decoded-message"></div><button class="button button-outline" id="copy-message" type="button">Copy message <span aria-hidden="true">↗</span></button><span class="copy-status" id="copy-status" role="status"></span></div></div>
+          </div>
+        </section>
+      </section>
+
+      <section class="studio-footnote section-pad"><span class="footnote-mark">✦</span><div><strong>Privacy is a feature, not a promise.</strong><p>SafeData Studio uses the Web Crypto API for AES-GCM encryption and hides the encrypted payload in image pixels. Keep your password safe — it is never stored or sent anywhere.</p></div><a class="text-link" href="/">Learn about SafeData <span aria-hidden="true">→</span></a></section>
+    </main>
+    <script type="module" src="/src/studio.js"></script>
+  </body>
+</html>
