@@ -19,7 +19,7 @@ SafeData combines **encryption** and **steganography** in a single in-browser to
 
 Everything runs locally. There is no server, no upload, and no account.
 
-## ✨ Features
+##  Features
 
 - **Encode:** pick an image, set a password, write a message, then download a protected PNG.
 - **Decode:** drop in a protected image, enter the password, and read the message.
@@ -29,7 +29,7 @@ Everything runs locally. There is no server, no upload, and no account.
 - **Drag and drop**, live character count, image capacity checks, and side-by-side original and protected previews.
 - **Responsive** marketing site and Studio, with `prefers-reduced-motion` respected.
 
-## 🧠 How it works
+##  How it works
 
 ```mermaid
 flowchart LR
@@ -51,7 +51,7 @@ flowchart LR
 
 Decoding reverses the process. A wrong password fails the GCM authentication check, so the app reports that the password could not unlock the message.
 
-## 🚀 Getting started
+##  Getting started
 
 ```bash
 git clone https://github.com/<your-username>/safedata.git
@@ -68,7 +68,7 @@ Then open <http://localhost:5173>.
 | `npm run build` | Create a production build in `dist/` |
 | `npm run preview` | Serve the production build locally |
 
-## 🗂 Project structure
+##  Project structure
 
 ```
 src/
@@ -92,7 +92,7 @@ src/
     └── stego.js          LSB embed and extract on canvas pixels
 ```
 
-## 🔐 Privacy model
+##  Privacy model
 
 - No network requests are made with your images, passwords, or messages. Everything happens in the browser.
 - Passwords are not stored anywhere. If you lose one, the message cannot be recovered.
@@ -108,7 +108,7 @@ Please read these before relying on SafeData for anything sensitive.
 - **Capacity is limited by image size.** The app warns you if the message does not fit.
 - This is an educational and personal-use project and has not had an independent security audit.
 
-## 🌐 Deployment
+##  Deployment
 
 The app uses client-side routing, so the host must serve `index.html` for unknown paths such as `/studio`. Config for the common hosts is included:
 
@@ -116,7 +116,7 @@ The app uses client-side routing, so the host must serve `index.html` for unknow
 - **Vercel:** `vercel.json`
 - **Other hosts:** add a "single-page app" fallback to `index.html`.
 
-## 🛣 Roadmap ideas
+##  Roadmap ideas
 
 - [ ] Raise PBKDF2 iterations (OWASP currently recommends far more than 120,000 for SHA-256)
 - [ ] Password strength meter
@@ -124,7 +124,7 @@ The app uses client-side routing, so the host must serve `index.html` for unknow
 - [ ] Warn when a recompressed or lossy image is chosen for decoding
 - [ ] Unit tests for the crypto and steganography modules
 
-## 🤝 Contributing
+##  Contributing
 
 Issues and pull requests are welcome. For larger changes, please open an issue first to discuss what you would like to change.
 
